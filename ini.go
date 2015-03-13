@@ -82,8 +82,8 @@ func parseFile(in *bufio.Reader, file File) (err error) {
 		}
 		lineNum++
 		line = strings.TrimSpace(line)
-		if len(line) == 0 {
-			// Skip blank lines
+		if len(line) == 0 || strings.HasPrefix(line, "REM ") {
+			// Skip blank lines and remarked lines
 			continue
 		}
 		if line[0] == ';' || line[0] == '#' {
@@ -101,6 +101,7 @@ func parseFile(in *bufio.Reader, file File) (err error) {
 			// Create the section if it does not exist
 			file.Section(section)
 		} else {
+
 			return ErrSyntax{lineNum, line}
 		}
 
