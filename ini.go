@@ -90,6 +90,11 @@ func parseFile(in *bufio.Reader, file File) (err error) {
 			// Skip comments
 			continue
 		}
+		validLine := regexp.MustCompile(`^\S+=\S+`)
+		if !(validLine.MatchString(line)) {
+			// skip lines that don't match "foo=bar"
+			continue
+		}
 
 		if groups := assignRegex.FindStringSubmatch(line); groups != nil {
 			key, val := groups[1], groups[2]
