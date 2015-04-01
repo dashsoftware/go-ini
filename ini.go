@@ -90,10 +90,10 @@ func parseFile(in *bufio.Reader, file File) (err error) {
 			// Skip comments
 			continue
 		}
-		validLine := regexp.MustCompile(`^\S+=\S+`)
-		validHeader := regexp.MustCompile(`^\[\S+\]`)
+		validLine := regexp.MustCompile(`^.+=.+`)
+		validHeader := regexp.MustCompile(`^\[.+\]`)
 		if !(validLine.MatchString(line)) && !(validHeader.MatchString(line)) {
-			// skip lines that don't match "foo=bar or [section]"
+			// skip lines that don't match "foo = bar" OR "[section]"
 			continue
 		}
 
